@@ -15,7 +15,7 @@
         android:text="@string/calculate"
         android:id="@+id/Calculate"
         android:onClick="calculateYears"
-        android:layout_above="@+id/button"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -67,24 +67,5 @@
         android:layout_alignBottom="@+id/packYearsText"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Subtract"
-        android:id="@+id/button"
-        android:layout_above="@+id/packYearsText"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listView"
-        android:layout_below="@+id/years"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="47dp"
-        android:layout_above="@+id/Calculate" />
 
 </RelativeLayout>

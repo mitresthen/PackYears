@@ -35,9 +35,4 @@ public class MainActivity extends AppCompatActivity {
         textField.setText(packYearsDisplay);
     }
 
-
-
-    public int subtractor(int a, int b) {
-        return a-b;
-    }
 }
