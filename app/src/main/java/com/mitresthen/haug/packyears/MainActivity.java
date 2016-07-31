@@ -10,7 +10,7 @@ import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int CigarettesInPack = 20;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,13 +19,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void calculateYears(View view) {
         final EditText cigsaDay = (EditText) findViewById(R.id.cigsPerDay);
+        final EditText yearsOfCigs = (EditText) findViewById(R.id.years);
         String packYearsDisplay = "0";
         try {
             double cigs = Double.parseDouble(cigsaDay.getText().toString());
-            double packs = cigs / CigarettesInPack;
-            final EditText yearsOfCigs = (EditText) findViewById(R.id.years);
             double years = Double.parseDouble(yearsOfCigs.getText().toString());
-            double packYears = packs * years;
+            double packYears = Calculator.Calculate(Constants.Cigarette, cigs, 1, years);
             DecimalFormat df = new DecimalFormat("0.0");
             packYearsDisplay = df.format(packYears);
         } catch (NumberFormatException e){
