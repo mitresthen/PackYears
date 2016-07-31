@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">PackYears</string>
+    <string name="calculate">Calculate</string>
+    <string name="pack_years">Pack-Years</string>
+    <string name="cigarettes_per_day">Cigarettes per day</string>
+    <string name="years_smoked">Years smoked</string>
+    <string name="_0">0</string>
+</resources>
