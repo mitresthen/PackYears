@@ -6,6 +6,6 @@ package com.mitresthen.haug.packyears;
 public class Calculator {
 
     public static double Calculate(double packFactor, double quantity, double frequency, double duration){
-        return ((packFactor*quantity)/Constants.CigarettesInPack)*duration;
+        return packFactor*quantity*duration*frequency;
     }
 }

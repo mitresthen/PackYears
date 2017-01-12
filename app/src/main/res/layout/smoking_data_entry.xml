@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:showIn="@layout/activity_usagedisplay">
+
+    <EditText
+        android:id="@+id/quantity"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="Qty"/>
+
+    <Spinner
+        android:id="@+id/tobaccotype"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Spinner
+        android:id="@+id/frequency"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/nrofyears"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:inputType="number"
+        android:hint="Yrs"/>
+
+    <ImageButton
+        android:id="@+id/addnew"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:layout_weight="1.00"
+        android:background="?android:selectableItemBackground"
+        android:src="@drawable/ic_add_circle_outline_black_48px"
+        android:onClick="calculateYears"
+        android:includeFontPadding="false" />
+
+</LinearLayout>

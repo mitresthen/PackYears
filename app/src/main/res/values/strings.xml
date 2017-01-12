@@ -5,4 +5,5 @@
     <string name="cigarettes_per_day">Cigarettes per day</string>
     <string name="years_smoked">Years smoked</string>
     <string name="_0">0</string>
+    <string name="action_wipe">ClearAll</string>
 </resources>
