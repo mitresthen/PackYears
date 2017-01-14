@@ -28,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private ListView listView;
     private ListViewAdapter arrayAdapter;
     private double sum = 0.0;
-    private DecimalFormat df = new DecimalFormat("0.0");
+    private DecimalFormat df = new DecimalFormat("0.00");
+    private final String sumPrefix = "Total Pack Years: ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,36 +77,79 @@ public class MainActivity extends AppCompatActivity {
         final EditText yearsOfCigs = (EditText) findViewById(R.id.nrofyears);
         final Spinner tobaccoType = (Spinner)  findViewById(R.id.tobaccotype);
         final Spinner frequency = (Spinner) findViewById(R.id.frequency);
+
         String packYearsDisplay = "0";
 
-        try {
-            double cigs = Double.parseDouble(quantity.getText().toString());
-            double years = Double.parseDouble(yearsOfCigs.getText().toString());
-            double tobaccoFactor = Constants.TobaccoFactors.get(tobaccoType.getSelectedItem().toString());
-            double usageFrequency = Constants.TimeFactors.get(frequency.getSelectedItem().toString());
-            double packYears = Calculator.Calculate(tobaccoFactor, cigs, usageFrequency, years);
-            sum += packYears;
-            packYearsDisplay = df.format(packYears);
-        } catch (NumberFormatException e){
+        double cigs = 0.0;
+        double years = 0.0;
+        double tobaccoFactor = 0.0;
+        double usageFrequency = 0.0;
 
+        try {
+            cigs = Double.parseDouble(quantity.getText().toString());
+            years = Double.parseDouble(yearsOfCigs.getText().toString());
+            tobaccoFactor = Constants.TobaccoFactors.get(tobaccoType.getSelectedItem().toString());
+            usageFrequency = Constants.TimeFactors.get(frequency.getSelectedItem().toString());
+        } catch (NumberFormatException e){
         }
 
-        String sumDisplay = df.format(sum);
-        final TextView textField = (TextView) findViewById(R.id.calculatedYears);
-        textField.setText(sumDisplay);
+        double packYears = Calculator.Calculate(tobaccoFactor, cigs, usageFrequency, years);
 
-        tobaccoList.add(new TobaccoYear(tobaccoType.getSelectedItem().toString(), packYearsDisplay));
+        SumAdd(packYears);
+
+        packYearsDisplay = df.format(packYears);
+        tobaccoList.add(new TobaccoYear(tobaccoType.getSelectedItem().toString(), packYears));
         arrayAdapter.notifyDataSetChanged();
     }
 
     public void DeleteAll(View view){
+        SumSet("0.0");
         tobaccoList.clear();
         arrayAdapter.notifyDataSetChanged();
+    }
 
-        sum = 0.0;
+    public void SumSubtract(double sub){
+        sum -= sub;
+        if(sum < 0)
+            sum = 0.0;
+
+        UpdateSumText();
+    }
+
+    public void SumAdd(double sub){
+        sum += sub;
+        UpdateSumText();
+    }
+
+    public void SumSet(String sub){
+        double subDouble = StringToUnsignedDouble(sub);
+        if(subDouble < 0.0f)
+            return;
+
+        sum = subDouble;
+
+        UpdateSumText();
+    }
+
+    private double StringToUnsignedDouble(String doubleString){
+        double subDouble = -1.0f;
+        try{
+            subDouble = Double.parseDouble(doubleString);
+        } catch (NumberFormatException e){
+            subDouble = Double.parseDouble(doubleString.replace(',', '.'));
+        }
+
+        if(subDouble < 0.0f)
+            return -1.0f;
+        else{
+            return subDouble;
+        }
+    }
+
+    private void UpdateSumText(){
         String sumDisplay = df.format(sum);
         final TextView textField = (TextView) findViewById(R.id.calculatedYears);
-        textField.setText(sumDisplay);
+        textField.setText(sumPrefix + sumDisplay);
     }
 
     private class ListViewAdapter extends BaseAdapter implements ListAdapter
@@ -145,13 +189,14 @@ public class MainActivity extends AppCompatActivity {
             tobaccoRow.setText(data.get(i).tobaccoTypeDisp);
 
             TextView packYearRow = (TextView) rowView.findViewById(R.id.packYearsRow);
-            packYearRow.setText(data.get(i).yearsDisp);
+            packYearRow.setText(df.format(data.get(i).yearsDisp));
 
             ImageButton deleteRow = (ImageButton) rowView.findViewById(R.id.removeItem);
 
             deleteRow.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
+                    SumSubtract(data.get(i).yearsDisp);
                     data.remove(i);
                     notifyDataSetChanged();
                 }
@@ -163,9 +208,9 @@ public class MainActivity extends AppCompatActivity {
 
     private class TobaccoYear{
         public String tobaccoTypeDisp = "";
-        public String yearsDisp = "0.0";
+        public double yearsDisp = 0.0;
 
-        public TobaccoYear(String tobaccoTypeDisp, String yearsDisp){
+        public TobaccoYear(String tobaccoTypeDisp, double yearsDisp){
             this.tobaccoTypeDisp = tobaccoTypeDisp;
             this.yearsDisp = yearsDisp;
         }

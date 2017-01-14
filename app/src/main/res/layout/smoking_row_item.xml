@@ -10,14 +10,18 @@
         android:id="@+id/tobaccoTypeRow"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_weight="0.60" />
+        android:layout_weight="0.60"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:fontFamily="monospace" />
 
     <TextView
         android:hint="PackYears"
         android:id="@+id/packYearsRow"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_weight="0.20" />
+        android:layout_weight="0.20"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:fontFamily="monospace" />
 
 
     <ImageButton
